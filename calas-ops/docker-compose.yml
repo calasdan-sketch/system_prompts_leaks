@@ -1,0 +1,18 @@
+services:
+  calas-ops:
+    image: node:22-bookworm
+    working_dir: /app
+    command: node src/server.mjs
+    ports:
+      - "8787:8787"
+    environment:
+      CALAS_OPS_HOST: 0.0.0.0
+      CALAS_OPS_PORT: 8787
+      CALAS_OPS_DB_PATH: /app/data/calas-ops.db
+      CALAS_OPS_API_TOKEN: ${CALAS_OPS_API_TOKEN:-}
+    volumes:
+      - ./:/app
+      - calas_ops_data:/app/data
+
+volumes:
+  calas_ops_data:
